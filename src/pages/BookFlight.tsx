@@ -48,19 +48,9 @@ const BookFlight = () => {
       };
 
       // Save booking to localStorage (simulate database)
-      async function savePassenger(data: any) {
-        const response = await fetch('https://o35uk5fqvk.execute-api.eu-north-1.amazonaws.com/pro', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
-        });
-      
-        const result = await response.json();
-        console.log('Lambda Response:', result);
-      }
-
+  const existingBookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+      existingBookings.push(newBooking);
+      localStorage.setItem('bookings', JSON.stringify(existingBookings));
       // Update flight seats
       const updatedFlight = { ...flight, seatsAvailable: flight.seatsAvailable - 1 };
       
